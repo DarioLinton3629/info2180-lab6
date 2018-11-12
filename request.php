@@ -13,6 +13,9 @@ $definition = [
     "javascript" => "A lightweight, interpreted programming language with first-class functions that adds interactivity to your website.",
     "php" => "A server-side scripting language, and a powerful tool for making dynamic and interactive websites",
 ];
-
+echo "CHeese";
+echo '<script language="javascript">';
+echo 'alert("message successfully sent")';
+echo '</script>';
 print "<h3>" . strtoupper($query) . "</h3>";
 print "<p>" . $definition[$query] . "</p>";

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SEARCH</title>
+</head>
+<body>
+	
+	<button onclick= 'mysearch()' id= search type= "button">Search</button>
+
+	
+</body>
+<script type="text/javascript">
+	function mysearch(){
+		
+		let xml = new  XMLHttpRequest();
+       	xml.onreadystatechange = function(){
+           if(xml.readyState === 4 && xml.status === 200){
+               alert(xml.responseText);
+           }
+       };
+       xml.open("GET","request.php?q=definition",true);
+       xml.send();
+
+    };
+</script>
+</html>
