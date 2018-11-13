@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SEARCH</title>
+    <title>SEARCH</title>
+     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-	
-	<button onclick= 'mysearch()' id= search type= "button">Search</button>
-
-	
+    <div class= "web">Web Dictionary</div>
+    <div class=try>
+        <p>Lookup the definition of a word(e.g. ajax, html, bar, sjavascript or css)</p>
+        <form class=search>
+             <input type="text" id="word"> 
+             <button onclick= 'mysearch()' class= 'button' id= 'search' type= "button">Search</button>  
+        </form>
+    <p><h3>Result</h3></p>
+    <div id='result' class="result"> </div>
+    </div>
 </body>
 <script type="text/javascript">
-	function mysearch(){
-		
-		let xml = new  XMLHttpRequest();
-       	xml.onreadystatechange = function(){
+    function mysearch(){
+        var word = document.getElementById("word").value;
+        let xml = new  XMLHttpRequest();
+        xml.onreadystatechange = function(){
            if(xml.readyState === 4 && xml.status === 200){
-               alert(xml.responseText);
+              var t = document.getElementById('result');
+              t.innerHTML = xml.responseText;
+              
            }
        };
        xml.open("GET","request.php?q=definition",true);
        xml.send();
-
-    };
+       xml.open("GET","request.php?q="+word,true);
+       xml.send();
+       
+     };
 </script>
-</html>
+</html> 
