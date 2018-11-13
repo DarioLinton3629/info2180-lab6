@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SEARCH</title>
-     <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>SEARCH</title>
+   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <div class= "web">Web Dictionary</div>
-    <div class=try>
-        <p>Lookup the definition of a word(e.g. ajax, html, bar, sjavascript or css)</p>
-        <form class=search>
-             <input type="text" id="word"> 
-             <button onclick= 'mysearch()' class= 'button' id= 'search' type= "button">Search</button>  
+  <div class=try>
+      <p>Lookup the definition of a word(e.g. ajax, html, bar, sjavascript or css)</p>
+      <form class=search>
+             <input type="text" id="word" > 
+             <button onclick= 'mysearch()' class= 'button' id= 'search' type= "button">Search</button>
+             <button onclick= 'getall()' class= 'button' id= 'gall' type= "button">Get all definitions</button>
         </form>
     <p><h3>Result</h3></p>
     <div id='result' class="result"> </div>
     </div>
 </body>
 <script type="text/javascript">
-    function mysearch(){
-        var word = document.getElementById("word").value;
-        let xml = new  XMLHttpRequest();
+  function mysearch(){
+    var word = document.getElementById("word").value;
+    let xml = new  XMLHttpRequest();
         xml.onreadystatechange = function(){
            if(xml.readyState === 4 && xml.status === 200){
               var t = document.getElementById('result');
@@ -32,6 +33,27 @@
        xml.open("GET","request.php?q="+word,true);
        xml.send();
        
+     };
+     function getall(){
+         
+         let xml = new XMLHttpRequest();
+         xml.onreadystatechange = function(){
+           if(xml.readyState === 4 && xml.status === 200){
+               
+               let output = "<ol>";
+               let text = xml.responseXML;
+               let terms = text.getElementsByTagName("definition");
+               for(let counter = 0; counter<terms.length;counter++){
+                   output+="<li><h3>"+terms[counter].getAttribute("name")+"</h3><p>"+terms[counter].childNodes[0].nodeValue+"</p><p> -"+terms[counter].getAttribute("author")+"</p></li>";
+               }
+               output+="</ol>";
+               var t = document.getElementById('result');
+               t.innerHTML = output;
+           }
+       };
+       xml.open("GET","request.php?q=&all=true",true);
+       xml.send();
+
      };
 </script>
 </html> 
